@@ -37,8 +37,10 @@ void process_image_callback(const sensor_msgs::Image img)
         if ((int)img.data[i*img.step+j] == white_pixel) pos_xs.push_back(j);
       }
     }
-    cout << "bp" << endl;
-    if (pos_xs.size() == 0) return;
+    if (pos_xs.size() == 0) {
+      drive_bot(0.0, 0.0);
+      return;
+    }
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
       drive_robot(0.5, 0.5);
