@@ -34,7 +34,6 @@ void process_image_callback(const sensor_msgs::Image img)
     std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
       for (unsigned j = 0; j < img.step; j++) {
-        cout << (int)img.data[i*img.step+j] << endl;
         if ((int)img.data[i*img.step+j] == white_pixel) pos_xs.push_back(j);
       }
     }
