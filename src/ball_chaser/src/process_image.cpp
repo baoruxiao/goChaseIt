@@ -30,14 +30,12 @@ void process_image_callback(const sensor_msgs::Image img)
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
     unsigned int width = img.width;
-    cout << img.height << " " << img.width << endl;
-    int white_pixel = 255;
+    uint8_t white_pixel = 255;
     std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
-      for (unsigned j = 0; j < img.width; j++) {
-        // cout << i*img.width+j << endl;
-        // cout << (int)img.data[i*img.width+j] << endl;
-        if ((int)img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
+      for (unsigned j = 0; j < img.step; j++) {
+        cout << (uint8_t)img.data[i*img.step+j] << endl;
+        if ((uint8_t)img.data[i*img.step+j] == white_pixel) pos_xs.push_back(j);
       }
     }
     if (pos_xs.size() == 0) return;
