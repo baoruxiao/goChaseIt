@@ -1,0 +1,9 @@
+Within this package, you'll analyze the image captured by the camera to determine the position of a white ball. Then you'll drive the robot toward the ball.
+
+The nodes in ball_chaser will communicate with the my_robot package by subscribing to the robot camera sensor and publishing to the robot's wheel joints
+
+Two c++ nodes:
+  1) ball_chaser/command_robot service to drive the robot around by controlling its linear x and angular z velocities.
+     The service will publish a message containing the velocities to the wheel joints.
+  2) process_image: this is client node, who will subscribe to the robot's camera images and analyze each image to determine the position of the white ball. Once ball position is determined, the client node will request a service to drive the robot either left, right or forward.
+
