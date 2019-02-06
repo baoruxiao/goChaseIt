@@ -2,6 +2,9 @@
 #include "ball_chaser/DriveToTarget.h"
 #include <sensor_msgs/Image.h>
 
+using std::cout;
+using std::endl;
+
 // Define a global client that can request services
 ros::ServiceClient client;
 
@@ -31,10 +34,11 @@ void process_image_callback(const sensor_msgs::Image img)
     std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
       for (unsigned j = 0; j < img.width; j++) {
+        cout << i*img.width+j << endl;
+        cout << (int)img.data[i*img.width+j] << endl;
         if ((int)img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
       }
     }
-    std::cout << "bp" << std::endl;
     if (pos_xs.size() == 0) return;
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
