@@ -11,8 +11,8 @@ void drive_robot(float lin_x, float ang_z)
     // TODO: Request a service and pass the velocities to it to drive the robot
     ROS_INFO_STREAM("Moving towards the ball");
     ball_chaser::DriveToTarget srv;
-    srv.linear_x = lin_x;
-    srv.angular_z = ang_z;
+    srv.request.linear_x = lin_x;
+    srv.request.angular_z = ang_z;
 
     if (!client.call(srv)) {
       ROS_ERROR("Failed to call service drive_robot");
@@ -28,10 +28,10 @@ void process_image_callback(const sensor_msgs::Image img)
     // Request a stop when there's no white ball seen by the camera
     unsigned int width = img.width;
     int white_pixel = 255;
-    vector<unsigned> pos_xs = {};
+    std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
       for (unsigned j = 0; j < img.width; i++) {
-        if (img.data(i*img.steps+j) == white_pixel) pos_xs.push_back(j);
+        if (img.data(i*img.step+j) == white_pixel) pos_xs.push_back(j);
       }
     }
     if (pos_xs.size() == 0) return;
