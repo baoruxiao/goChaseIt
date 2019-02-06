@@ -31,10 +31,10 @@ void process_image_callback(const sensor_msgs::Image img)
     std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
       for (unsigned j = 0; j < img.width; j++) {
+        std::cout << img.data[i*img.width+j] << endl;
         if (img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
       }
     }
-    std::cout << "bp1" << std::endl;
     if (pos_xs.size() == 0) return;
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
