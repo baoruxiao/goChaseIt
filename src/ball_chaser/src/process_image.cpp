@@ -35,14 +35,14 @@ void process_image_callback(const sensor_msgs::Image img)
     std::vector<unsigned> pos_xs = {};
     for (unsigned i = 0; i < img.height; i++) {
       for (unsigned j = 0; j < img.step; j++) {
-        if ((int)img.data[i*img.step+j] == white_pixel) pos_xs.push_back(j%width);
+        if ((int)img.data[i*img.step+j] == white_pixel && j < img.width) pos_xs.push_back(j);
       }
     }
     if (pos_xs.size() == 0) {
       drive_robot(0.0, 0.0);
       return;
     }
-    unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
+    unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/pos_x_mean.size();
     if (pos_x_mean < width / 3) {
       drive_robot(0.5, 0.5);
     } else if (pos_x_mean < 2 * width / 3) {
