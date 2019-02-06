@@ -27,21 +27,20 @@ void process_image_callback(const sensor_msgs::Image img)
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
     unsigned int width = img.width;
-    int white_pixel = 255;
-    // std::vector<unsigned> pos_xs = {};
-    // for (unsigned i = 0; i < img.height*img.step; i++) {
-    //   for (unsigned j = 0; j < img.width; i++) {
-    //     if (img.data[i*img.step+j] == white_pixel) pos_xs.push_back(j);
-    //   }
-    // }
+    char white_pixel = 255;
+    std::vector<unsigned> pos_xs = {};
+    for (unsigned i = 0; i < img.height; i++) {
+      for (unsigned j = 0; j < img.width; i++) {
+        if (img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
+      }
+    }
 
-    // if (pos_xs.size() == 0) return;
-    // unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
-    unsigned pos_x_mean = 0;
+    if (pos_xs.size() == 0) return;
+    unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
-      drive_robot(0.5, 0.0);
-    } else if (pos_x_mean < 2 * width / 3) {
       drive_robot(0.5, 0.5);
+    } else if (pos_x_mean < 2 * width / 3) {
+      drive_robot(0.5, 0.0);
     } else {
       drive_robot(0.5, -0.5);
     }
