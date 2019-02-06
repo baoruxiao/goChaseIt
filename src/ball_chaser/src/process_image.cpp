@@ -38,7 +38,7 @@ void process_image_callback(const sensor_msgs::Image img)
       }
     }
     if (pos_xs.size() == 0) {
-      drive_bot(0.0, 0.0);
+      drive_robot(0.0, 0.0);
       return;
     }
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
