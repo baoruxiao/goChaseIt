@@ -26,6 +26,7 @@ void process_image_callback(const sensor_msgs::Image img)
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
+    std::cout << "bp0" << std::endl;
     unsigned int width = img.width;
     char white_pixel = 255;
     std::vector<unsigned> pos_xs = {};
@@ -34,7 +35,7 @@ void process_image_callback(const sensor_msgs::Image img)
         if (img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
       }
     }
-    std::cout << "bp" << std::endl;
+    std::cout << "bp1" << std::endl;
     if (pos_xs.size() == 0) return;
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
