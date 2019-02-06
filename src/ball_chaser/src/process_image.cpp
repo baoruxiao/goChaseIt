@@ -34,7 +34,7 @@ void process_image_callback(const sensor_msgs::Image img)
         if ((int)img.data[i*img.width+j] == white_pixel) pos_xs.push_back(j);
       }
     }
-    cout << "bp" << endl;
+    std::cout << "bp" << std::endl;
     if (pos_xs.size() == 0) return;
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
