@@ -43,11 +43,11 @@ void process_image_callback(const sensor_msgs::Image img)
     }
     unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/width;
     if (pos_x_mean < width / 3) {
-      drive_robot(0.5, 0.5);
+      drive_robot(0.5, 10.5);
     } else if (pos_x_mean < 2 * width / 3) {
       drive_robot(0.5, 0.0);
     } else {
-      drive_robot(0.5, -0.5);
+      drive_robot(0.5, 0.5);
     }
     return;
 }
