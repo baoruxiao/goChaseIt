@@ -42,7 +42,7 @@ void process_image_callback(const sensor_msgs::Image img)
       drive_robot(0.0, 0.0);
       return;
     }
-    unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/pos_x_mean.size();
+    unsigned pos_x_mean = std::accumulate(pos_xs.begin(), pos_xs.end(), 0.0)/pos_xs.size();
     if (pos_x_mean < width / 3) {
       drive_robot(0.5, 0.5);
     } else if (pos_x_mean < 2 * width / 3) {
